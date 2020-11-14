@@ -4,87 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Chat</title>
-    <!-- Bootrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
+    <title>Socket Server</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"
+        integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
 </head>
 
 <body class="container">
-    <h1 class="mt-5">MiniChat</h1>
+
+    <h1 class="mt-5">Acceso denegado</h1>
     <hr>
 
-
-    <form id="miFormulario">
-        <div class="row">
-            <div class="col-8">
-                <input type="text" id="txtMensaje" placeholder="Mensaje" class="form-control">
-            </div>
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">
-                    Enviar
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <div class="row">
-        <div class="col">
-            <ul id="misMensajes" class="mt-2 list-group p-4">
-
-            </ul>
-        </div>
-    </div>
-
-
-    <!-- Instanciar socket.io -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.js"
         integrity="sha512-vGcPDqyonHb0c11UofnOKdSAt5zYRpKI4ow+v6hat4i96b7nHSn8PQyk0sT5L9RECyksp+SztCPP6bqeeGaRKg=="
-        crossorigin="anonymous">
-        </script>
+        crossorigin="anonymous"></script>
+
     <script>
-        // const socket = io('http://localhost:8080');
-        const socket = io('https://dashboard.heroku.com/apps/react-socket-server-pedroaraya');
-
-        // Referencias a los elementos del DOM - salto una sola vez
-        const formulario = document.querySelector('#miFormulario');
-        const mensajes   = document.querySelector('#misMensajes');
-        const txtMensaje = document.querySelector('#txtMensaje');
-
-        // Posteo de formulario
-        formulario.addEventListener('submit', (e)=>{
-            e.preventDefault();
-            // Extraemos el mensaje
-            const nuevoMensaje = txtMensaje.value;
-            // console.log(nuevoMensaje);
-
-            // EMITIMOS EL MENSAJE
-            socket.emit('mensaje-emit-server',{texto: nuevoMensaje });
-            
-         });
+        // Conexión con el socket server
+        	 const socket = io('https://dashboard.heroku.com/apps/react-socket-server-pedroaraya');
 
 
-         // Escuchamos el mensaje que esta devolviendo el servidor
-         socket.on('mensaje-from-server', (data) =>{
-             console.log('Desde el servidor : ',data);
+        /// Para emitir
+        // socket.emit('mensaje-to-server', { data });
 
-             mensajes.innerHTML += `<li>${data.texto}</li>`
-         });
+        // Para escuchar
+        socket.on('mensaje-from-server', (data) => {
+            // callback a ejecutar
+        });
 
-
-
-        // TODO: comentado ejemplo básico de comunicación
-        // voy a estar eschuchando como socket client |  Escuchando evento del servidor
-        // socket.on('mensaje-bienvenida', (data) => {
-        //     // console.log('el servidor emitio algo')
-        //     console.log(data)
-        // });
-
-        // setTimeout(() => {
-        //     //    console.log('esto!');
-        //     // vamos a emitir un mensaje-cliente  | Emitiendo evento
-        //     socket.emit('mensaje-cliente', { msg: 'cliente', nombre: 'Peter' });
-        // }, 2000);
 
     </script>
 
