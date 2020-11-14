@@ -1,7 +1,7 @@
 // Todo lo necesario para crear nuestro socket
 const express  = require('express');
 // Servidor de sockets
-const http     = require('https');
+const http     = require('http');
 // Socket server
 const socketio = require('socket.io');
 // path
@@ -35,7 +35,7 @@ class Server {
     this.app.use(express.static(path.resolve(__dirname, '../public')));
 
     // Cors
-    this.app.use(cors() );
+    this.app.use('*', cors() );
 
   }
   // Configurar sockets
