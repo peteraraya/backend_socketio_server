@@ -1,11 +1,14 @@
 // Todo lo necesario para crear nuestro socket
-const express = require('express');
+const express  = require('express');
 // Servidor de sockets
-const http = require('http');
+const http     = require('http');
 // Socket server
 const socketio = require('socket.io');
 // path
-const path = require('path');
+const path     = require('path');
+// cors --> es un middleware
+const cors     = require('cors');
+
 const Sockets = require('./sockets');
 
 class Server {
@@ -27,8 +30,13 @@ class Server {
 
   // Middleware : aquí pondremos todos nuestros middleware que vamos a utilizar
   middlewares() {
+    
     // Desplegar el directorio público
     this.app.use(express.static(path.resolve(__dirname, '../public')));
+
+    // Cors
+    this.app.use( cors() );
+
   }
   // Configurar sockets
   configurarSockets() {
